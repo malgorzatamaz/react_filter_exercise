@@ -1,32 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// ...
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class People extends Component {
   static propTypes = {
-    // ...
+    people: PropTypes.array
   };
 
-  // ...
-
-  render() {
+  renderPerson(person) {
     return (
-      <div>
-        {/* ... */}
+      <div className="App-box" key={person.id}>
+        {person.name}
       </div>
     );
   }
+
+  render() {
+    return <div>{this.props.people.map(this.renderPerson)}</div>;
+  }
 }
 
-const mapStateToProps = (state) => ({
-  // ...
+const mapStateToProps = state => ({
+  people: state.people.filtered
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  // ...
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(People);
+export default connect(mapStateToProps)(People);
